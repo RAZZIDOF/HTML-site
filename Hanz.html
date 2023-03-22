@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: #3a3d46;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+    }
+
+    .title {
+      font-size: 24px;
+      color: #fff;
+    }
+
+    .tab-container {
+      display: flex;
+    }
+
+    .tab {
+      margin-left: 10px;
+      padding: 5px 10px;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .tab:hover {
+      background-color: #445;
+    }
+
+    .main {
+      padding-top: 60px;
+      text-align: center;
+      background-color: #2d2f36; 
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: aquamarine;
+    }
+
+    h2 {
+      font-size: 64px;
+      margin-bottom: 10px;
+      padding-bottom: 20px;
+      padding-top: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      padding: 25px;
+    }
+
+    .slideshow {
+      width: 100%;
+      height: 600px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide {
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 30%;
+      transition: all .5s ease-in-out;
+    }
+    .image-overlay {
+  position: relative;
+  width: 100%;
+}
+
+.image-overlay img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover; 
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  width: 80%;
+}
+
+.overlay h3 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.overlay p {
+  font-size: 18px;
+}
+
+  .active {
+    display: block;
+    opacity: 0;
+  } 
+  .slide.active {
+  opacity: 1;
+  }
+  .gradient-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%,rgba(0,0,0,0) 100%);
+  color: #fff;
+  text-align: center;
+  height: 33%;
+  opacity: 0;
+  transform: translateY(100px);
+  animation: fade-in 2s ease-out 0s forwards;
+
+
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gradient-box.show {
+  /* animate in */
+  opacity: 1;
+  transform: translateY(0);
+}
+.gradient-box p {
+  margin: 0;
+}
+.gradient-box h3{
+  font-size: 28px;
+}
+
+.gradient-box a {
+  color: #fff;
+  text-decoration: underline;
+}
+.our-path-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 80%; /* adjust width as needed */
+  height: 100%;
+  margin: 0 auto; /* add this line */
+
+}
+
+.our-path-section
+{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center; /* add this line */
+
+}
+.our-path {
+  padding: 40px 200px;
+  margin-bottom: 20px;
+  background-color: #445;
+  color: #fff;
+  border: 2px solid #fff; /* Add border */
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 24px;
+  align-items: center;
+}
+.progress-path-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+
+.our-path:hover {
+  background-color: #556;
+}
+
+.progress-path {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 2s;
+  align-items: center;
+}
+
+.step {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: transform 0.4s, opacity 0.4s;
+}
+
+.arrow {
+  width: 50px;
+  height: 50px;
+  background-image: url('arrow-image.png');
+  background-size: cover;
+  background-position: center;
+}
+.button-container {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+
+
+    footer {
+      background-color: #334;
+      padding: 20px;
+      text-align: center; 
+      background-color: #3a3d46;
+
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #445;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #556;
+    }
+
+	.section-content {
+      display: flex;
+      align-items: stretch;
+
+      
+      width: 100%;
+    }
+
+    .section-text {
+      flex: 1;
+      height: 300px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+       background-color: orange; /* or whatever color you prefer */
+
+
+    } 
+
+    .title-full-width {
+      width: 100%;
+      margin: 0%;
+      background-color: #3a3d46;
+
+	}
+
+  .section-image
+  {
+    width: 40%;
+    object-fit: cover;
+    max-height: 300px; 
+  }
+  .no-margin 
+  {
+      margin: 0;
+  }
+  @keyframes fadeIn {
+  0% {
+    opacity: 40%;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+  
+    @media screen and (max-width: 600px) {
+      .tab-container {
+        flex-wrap: wrap;
+      }
+
+      .tab {
+        flex: 1;
+        margin: 5px 0;
+      }
+      .section-content
+      {
+        flex-direction: column; 
+      }
+      .section-image {
+        width: 100%;
+        order: 2;
+      }
+
+      .section-text {
+        order: 1; 
+        width: 100%;
+    }
+
+    .progress-path {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .arrow {
+    display: none;
+  }
+  header {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 5px;
+  }
+  .gradient-box {
+      display: none;
+  }
+}
+
+.overlay h3, .overlay p, .slide {
+  animation: fadeIn 2s ease-in-out;
+}
+
+  </style>
+  <title>KronHanz</title>
+</head>
+<body>
+  <header>
+    <div class="title">KronHanz</div>
+    <div class="tab-container">
+      <div class="tab" onclick="showTab('contact')">Contact</div>
+	  <div class="tab" onclick="showTab('portfolio')">Portfolio</div>
+</div>
+</div>
+
+  </header>
+  <main class="main">
+    <h1>KronHanz</h1>
+    <div class="slideshow">
+      <div class="slide active" style="background-image: url('Mansarda.jpg');"></div>
+      <div class="slide" style="background-image: url('Acopersis.jpg');"></div>
+      <div class="slide" style="background-image: url('Foisor.jpg');"></div>
+    </div>
+    <div class="gradient-box show">
+      <h3>Proiectele tale, aduse la realitate cu noi</h3>
+      <a href="portfolio.html">View portfolio</a>
+    </div>
+	<section>
+      <h2 class="title-full-width" style="color: #fff; background-color: black;">Cine suntem?</h2>
+      <div class="section-content">
+        <img src="CC.jpg" alt="Image 3" class="section-image" style="order: 1">
+        <div class="section-text">
+          <p class="no-margin" style="color: #333; background-color: orange; text-align: justify; order: 2">O construcție bine făcută nu este doar o clădire. La o KronoHoze, pasiunea pentru a face lucrurile bine este una din cele mai importante valori. Această pasiune este transmisă în fiecare proiect pe care îl facem și în fiecare interacțiune cu clienții noștri.Munca noastră este mult mai mult decât doar a construi un zid sau un acoperiș. Este despre a ajuta clienții să își transforme visurile în realitate. În fiecare zi, membrii echipei noastre de construcții se trezesc cu aceeași pasiune și determinare de a crea ceva special. Fie că este vorba despre un proiect mic sau unul mare, noi vedem fiecare proiect ca o oportunitate de a îmbunătăți viața clienților noștri și comunitatea în care trăim.Pentru noi, construcția este o artă și o știință în același timp. Știm că trebuie să fim riguroși în planificare și executare pentru a crea o construcție de calitate. Dar în același timp, ne dorim să adăugăm un strop de creativitate și ingeniozitate în fiecare proiect. Aceasta ne permite să obținem soluții inovatoare și adaptabile la nevoile clienților noștri.La finalul zilei, ne bucurăm de faptul că suntem o parte din transformarea pe care o facem în comunitatea noastră. Suntem mândri de fiecare proiect finalizat și de fiecare clienție fericit.</p>
+        </div>
+      </div>
+    </section>
+    <h2 style="color:antiquewhite">De la idee, la realitate</h2>>
+    <section style="height: 300px; background: gray;">
+      <div class="our-path-section">
+        <div class="our-path-wrapper">
+          <div class="button-container">
+            <div class="our-path" onclick="startProgressPathAnimation()">
+              Our Path
+            </div>
+          </div>
+        </div>
+        <div class="progress-path-container">
+          <div class="progress-path">
+            <div class="step" id="step1">1 - Ne contactezi</div>
+            <div class="arrow"></div>
+            <div class="step" id="step2">2 - Decidem impreuna care este cea mai buna continuare</div>
+            <div class="arrow"></div>
+            <div class="step" id="step3">3 - Lucram pentru a-ti indeplini visul</div>
+            <div class="arrow"></div>
+            <div class="step" id="step4">4 - Ai exact ceea ce ti-ai dorit la cea mai buna calitate  </div>
+         </div>
+        </div>
+      </div>
+    </section>
+    
+      <h2 class="title-full-width" style="color: #fff; background-color: black;">Cu ce ne ocupam?</h2>
+      <div class="section-content">
+        <img src="Cabana.jpg" alt="Image 3" class="section-image" style = "order: 1;">
+        <div class="section-text">
+          <p class="no-margin" style="color: #333; background-color: orange; text-align: justify; order: 1;">  Lucrăm cu clienți care doresc să-și îmbunătățească stilul de viață prin crearea unui spațiu confortabil și relaxant în aer liber. De la început până la finalizarea proiectului, suntem implicați în fiecare etapă a construcției. Folosim materiale de cea mai bună calitate, cu un aspect estetic plăcut, dar și cu proprietăți rezistente la intemperii și uzură. Echipa noastră de experți în construcții lucrează cu meticulozitate la fiecare proiect pentru a ne asigura că obținem cele mai bune rezultate. Înainte de a începe construcția, vom vizita locația și vom discuta cu clienții noștri pentru a înțelege nevoile și preferințele lor. Vom crea apoi un plan detaliat, care să cuprindă dimensiunile, forma și stilul foisorului sau acoperișului. De asemenea, ne asigurăm că proiectul respectă toate cerințele și reglementările locale.Suntem o companie pasionată de ceea ce facem și ne mândrim cu serviciile noastre de calitate. Ne dedicăm în totalitate clienților noștri și le oferim o experiență pozitivă de la început până la sfârșit. Fie că proiectul este mare sau mic, suntem determinați să livrăm rezultate excelente și să creăm un spațiu în aer liber de care clienții noștri se vor bucura ani de zile.</p>
+        </div>
+      </div>
+    </section>
+    <section class="image-overlay">
+      <img src="Construction.jpg" alt="Image" style="filter : brightness(0.5)">
+      <div class="overlay">
+        <h3 style="text-align:right; transform: translate(-23%, 0); ;">Tu vrei,<br>
+          Noi ne ocupam
+        </h3>
+        <p style = "font-size: 24px;">Impreuna construim un viitor mai bun pentru tine si familia ta</p>
+      </div>
+    </section>
+    <section>
+    <section>   
+      <h2 class="title-full-width" style="color: #fff; background-color: black;">De ce noi?</h2>
+      <div class="section-content">
+        <img src="Cabana.jpg" alt="Image 3" class="section-image">
+        <div class="section-text">
+          <p class="no-margin" style="color: #333; background-color: orange; text-align: justify;">Siguranța și calitatea sunt valorile principale pe care le oferim clienților noștri. Cu toate că suntem o firmă mică de construcții, avem experiență în domeniul construcțiilor și ne-am specializat în realizarea unor proiecte complexe, de la construcții de case până la amenajări de birouri și spații comerciale. Avem o echipă de specialiști bine pregătiți, care își desfășoară activitatea cu pasiune și dedicare pentru a obține cele mai bune rezultate. Un alt avantaj al firmei noastre este faptul că suntem foarte flexibili și ne adaptăm cerințelor clienților noștri. Înțelegem că fiecare proiect are nevoi specifice, iar noi suntem pregătiți să oferim soluții personalizate pentru a obține rezultatele dorite. De asemenea, suntem atenți la nevoile clienților noștri și ne dorim să stabilim relații pe termen lung, bazate pe încredere și respect reciproc. Un alt motiv pentru care suntem o alegere bună pentru clienții noștri este faptul că suntem la curent cu cele mai noi tehnologii și materiale de construcție. Această abordare ne permite să oferim soluții inovatoare și eficiente, care să răspundă nevoilor clienților noștri și să reducă costurile și timpii de execuție a proiectelor.. Această abordare ne permite să oferim soluții inovatoare și eficiente, care să răspundă nevoilor </p>
+        </div>
+      </div>
+    </section>
+	</main>
+  <footer>
+    <h2 style="color: #fff">Contact Us</h2>
+    <form id="contact-form">
+      <input type="email" placeholder="Email" required>
+      <input type="text" placeholder="Name" required>
+      <textarea rows="4" placeholder="Message" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </footer>
+  <script>
+    let slideIndex = 0;
+    let slides = document.querySelectorAll('.slide');
+	function showSlides() {
+  slides.forEach(slide => slide.classList.remove('active'));
+  slideIndex = (slideIndex + 1) % slides.length;
+  slides[slideIndex].classList.add('active');
+}
+
+setInterval(showSlides, 3000);
+
+function showTab(tabName) {
+  if (tabName === 'contact') {
+    window.location.href = 'contact.html';
+  } else if (tabName === 'portfolio') {
+    window.location.href = 'portfolio.html';
+  }
+}
+
+document.getElementById('contact-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  alert('Form submitted successfully!');
+});
+
+function startProgressPathAnimation() {
+  // Hide the "Our Path" button
+  document.querySelector('.our-path-wrapper').style.display = 'none';
+
+  // Show and animate the progress path steps
+  const progressPath = document.querySelector('.progress-path');
+  progressPath.style.opacity = '1';
+
+  const steps = progressPath.querySelectorAll('.step');
+  steps.forEach((step, index) => {
+    setTimeout(() => {
+      step.style.transform = 'translateY(0)';
+      step.style.opacity = '1';
+    }, index * 200);
+  });
+}
+
+  </script>
+</body>
+</html>
